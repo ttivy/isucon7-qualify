@@ -9,6 +9,7 @@ import random
 import string
 import tempfile
 import time
+from wsgi_lineprof.middleware import LineProfilerMiddleware
 
 
 static_folder = pathlib.Path(__file__).resolve().parent.parent / 'public'
@@ -398,4 +399,10 @@ def get_icon(file_name):
 
 
 if __name__ == "__main__":
-    app.run(port=8080, debug=True, threaded=True)
+    do_profile = False
+
+    if do_profile:
+        app = LineProfilerMiddleware(app)
+        app.run(port=8080, debug=True, threaded=True)
+    else:
+        app.run(port=8080, debug=True, threaded=True)
