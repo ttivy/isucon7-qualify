@@ -366,8 +366,8 @@ def post_profile():
                 avatar_data = data
 
     if avatar_name and avatar_data:
-        with open(icons_folder / avatar_name, 'wb') as f:
-            f.wite(avatar_data)
+        with (icons_folder / avatar_name).open('wb') as f:
+            f.write(avatar_data)
         cur.execute("UPDATE user SET avatar_icon = %s WHERE id = %s", (avatar_name, user_id))
 
     if display_name:
