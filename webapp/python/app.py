@@ -377,4 +377,15 @@ def post_profile():
 
 
 if __name__ == "__main__":
-    app.run(port=8080, debug=True, threaded=True)
+    do_profile = True
+
+    if do_profile:
+        filters = [
+                FilenameFilter("app.py"),
+                TotalTimeSorter(),
+                ]
+        with open("/home/isucon/isubata/webapp/python/lineprof.log", "w") as f:
+            app.wsgi_app = LineProfilerMiddleware(app.wsgi_app, stream=f, filters=filters)
+            app.run(port=8080, debug=True, threaded=True)
+    else:
+        app.run(port=8080, debug=True, threaded=True)
