@@ -11,7 +11,6 @@ if [ -f /var/log/nginx/error.log ]; then
     sudo mv /var/log/nginx/error.log /var/log/nginx/error.log.$(date "+%Y%m%d_%H%M%S")
 fi
 sudo systemctl restart mysql
-sudo service memcached restart
 sudo systemctl restart isubata.python
 sudo systemctl restart nginx
 
